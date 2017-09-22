@@ -33,6 +33,7 @@ int main()
     strcpy(p[1].name,"lisi");
     p[1].salary = 160.0;
 
+    munmap(p,sizeof(p));
     printf("write success\n");
 
 }
