@@ -8,19 +8,19 @@
 #include<stdio.h>
 #include<stdbool.h>
 #include<string.h>
-enum Edu{primary,middle,high,university};
+enum Edu{primary,middle,high,university};//创建枚举类型
 struct Student;
 struct Person
 {
     char name[20];
-    _Bool isMale;
+    _Bool isMale;//C中的bool
     int age;
 };
 struct Student
 {
     struct Person p;
     enum Edu type;
-    enum Edu (*getEdu)(struct Student s);
+    enum Edu (*getEdu)(struct Student s);//获取学历
     void(*setEdu)(struct Student *s,int choose);
     void(*printStudent)(struct Student s);
 };
@@ -29,11 +29,11 @@ enum Edu getEdu(struct Student s)
     return s.type;
 
 }
-void setEdu(struct Student *s,int choose)
+void setEdu(struct Student *s,int choose)//设置学历
 {
     s->type = (enum Edu)choose;
 }
-void printStudent(struct Student s)
+void printStudent(struct Student s)//打印信息
 {
     char sex[20];
     if(s.p.isMale)
