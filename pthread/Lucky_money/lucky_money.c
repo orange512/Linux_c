@@ -16,10 +16,11 @@
 int remainMoney = -1;//剩余红包钱
 int left_MoneyPacksize;//剩余红包个数
 pthread_t g_id[20];
+Node *pnode;//创建链表指针
 pthread_cond_t cond;
 pthread_mutex_t lock;
 int getMoney;//获取的钱
-//double Lucky_money = 0.0;
+double Lucky_money = 0.0;
 int RAND(int n,int m)//生成n到m之内的随机数
 {
     return rand()%(m-n+1)+n; 
@@ -43,16 +44,14 @@ int getRandomMoney()//获取随机金额红包
     left_MoneyPacksize--;
     return money;
 }
-void destroy(pthread_t tid)
+void destroy(pthread_t tid)//销毁抢完红包的线程
 {
     pthread_join(tid,0);
    // printf("%ld exit\n",tid);
 }
 void* task(void *p)//抢红包
 {
-    int n = (int)p;
     pthread_mutex_lock(&lock);
-    //printf("%d准备好抢红包\n",n);
     if(remainMoney == -1)
         pthread_cond_wait(&cond,&lock);
     if(remainMoney == 0)
@@ -63,13 +62,10 @@ void* task(void *p)//抢红包
     else
     {
         getMoney = getRandomMoney();//获取金额
-        printf("线程%d取走%d.%d%d元\n",n,getMoney/100,(getMoney/10)%10,getMoney%10);
-   //     Lucky_money =(double) (getMoney/100 + (double)((getMoney/10)%10) + (double)(getMoney%10));
-        char *s = getRandomString(4);//获取随机字符串
-        printf("%s\n",s);
-        tail_Insert(p,s,getMoney);//写入链表    
+    //    printf("取走%d.%d%d元\n",getMoney/100,(getMoney/10)%10,getMoney%10);
+        tail_Insert(pnode,getRandomString(5),getMoney);//写入链表    
         pthread_mutex_unlock(&lock);
-        destroy(pthread_self());
+        destroy(pthread_self());//先抢完的人先结束
     }
 }
 void* creat_money(void *p)//生产红包
@@ -87,8 +83,7 @@ void* creat_money(void *p)//生产红包
 
 int main()
 {
-    Node *p;
-    p = init();
+    pnode = init();
     int k;
     double user_money;
     int err;
@@ -111,20 +106,23 @@ int main()
     }
 
 
-    for(int i = 0 ; i  < 20;i++)//创建抢红包人数
+    for(int i = 0 ; i  < 400;i++)//创建抢红包人数
     {
-        if(err = pthread_create(&g_id[i],0,task,(void *)i)!= 0)
+//        int *pi = (int*)malloc(sizeof(int));
+//        pi = &i;
+        if(err = pthread_create(&g_id[i],0,task,0)!= 0)
             printf("error");
     }
 
     pthread_create(&tid,0,creat_money,(void *)(&user_money));
     pthread_join(tid,0);
 
-    sleep(5);
-    print(p);//打印抢到钱的人
-    Max(p);//显示最多抢的人
+    printf("\n1秒后开抢.....\n");
+    sleep(1);
+    print(pnode);//打印抢到钱的人
+    Max(pnode);//显示最多抢的人
 
-    free(p);
+    free(pnode);
     pthread_cond_destroy(&cond);
     pthread_mutex_destroy(&lock);
     return 0;

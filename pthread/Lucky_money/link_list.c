@@ -40,13 +40,12 @@ void print(Node* p)//打印信息
    while(p->next != NULL)
     {
         p = p->next;
-        printf("%s抢到红包金额:%d分\n",p->name,p->money);
+        printf("\n%s抢到红包金额:%d.%d%d元\n",p->name,p->money/100,(p->money/10)%10,p->money%10);
     }
-   printf("%s抢到红包金额:%d分\n",p->name,p->money);
 }
 void Max(Node* p)//最大抢到的红包
 {
-    int Max_money = 0.0;
+    int  Max_money = 0;
     char *M_person;
     while(p -> next != NULL)
     {
@@ -62,7 +61,7 @@ void Max(Node* p)//最大抢到的红包
         Max_money = p->money;
         M_person = p -> name;
     }
-    printf("运气王为%s----抢到的红包金额为%d\n",M_person,Max_money);
+    printf("\n运气王为%s----抢到的红包金额为%d.%d%d元\n",M_person,Max_money/100,(Max_money/10)%10,Max_money%10);
 }
 char* getRandomString(int length)//生成随机字符串
 {
