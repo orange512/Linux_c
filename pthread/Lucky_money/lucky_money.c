@@ -15,7 +15,6 @@
 #include"link_list.h"
 int remainMoney = -1;//剩余红包钱
 int left_MoneyPacksize;//剩余红包个数
-pthread_t g_id[20];
 Node *pnode;//创建链表指针
 pthread_cond_t cond;
 pthread_mutex_t lock;
@@ -94,7 +93,7 @@ int main()
 
     while(1)
     {
-        printf("请输入红包金额和红包数量\n");
+        printf("请输入红包金额和红包数量(注：红包数量最多3000个)\n");
         scanf("%lf %d",&user_money,&left_MoneyPacksize);
         if(user_money*100/left_MoneyPacksize >= 1)
         {
@@ -105,12 +104,11 @@ int main()
         printf("对不起，您的红包金额过少，请重新输入\n");
     }
 
-
-    for(int i = 0 ; i  < 400;i++)//创建抢红包人数
+    pthread_t *p_id =(pthread_t *) malloc(sizeof(pthread_t) * k * 2);
+    memset(p_id,0,sizeof(p_id));
+    for(int i = 0 ; i  < k*2;i++)//创建抢红包人数
     {
-//        int *pi = (int*)malloc(sizeof(int));
-//        pi = &i;
-        if(err = pthread_create(&g_id[i],0,task,0)!= 0)
+        if(err = pthread_create(&p_id[i],0,task,0)!= 0)
             printf("error");
     }
 
@@ -123,6 +121,7 @@ int main()
     Max(pnode);//显示最多抢的人
 
     free(pnode);
+    free(p_id);
     pthread_cond_destroy(&cond);
     pthread_mutex_destroy(&lock);
     return 0;
