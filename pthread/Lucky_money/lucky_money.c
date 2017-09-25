@@ -109,7 +109,7 @@ int main()
     for(int i = 0 ; i  < k*2;i++)//创建抢红包人数
     {
         if(err = pthread_create(&p_id[i],0,task,0)!= 0)
-            printf("error");
+            fprintf(stderr,"%s\n",strerror(err));
     }
 
     pthread_create(&tid,0,creat_money,(void *)(&user_money));

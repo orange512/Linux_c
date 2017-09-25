@@ -48,7 +48,7 @@ pthread_t mainid;
 pthread_t g_id[20];
 struct info{//个人信息
     int id;
-    int m;
+    double m;
     int mark;//用于标记只能抢一次
     char name[20];
 }person[20];
@@ -56,7 +56,7 @@ struct info{//个人信息
 pthread_mutex_t lock;
 void* task(void *p)//抢红包
 {
-    int n = *(int*)p;
+    int n = (int)p;
     pthread_mutex_lock(&lock);
     if(money > 0 && person[n].mark == -1)
     {
@@ -135,12 +135,8 @@ int main()
     pthread_attr_setdetachstate(&attr,PTHREAD_CREATE_DETACHED);*/
     for(int i = 0 ; i  < 20;i++)
     {
-        if(person[i].mark == -1)
-        {
-            if(err = pthread_create(&g_id[i],0,task,(void *)&i)!= 0)
-                   
+            if(err = pthread_create(&g_id[i],0,task,(void *)i)!= 0)
                 printf("error");
-        }
     }
     for(int j = 0 ; j < 20;j++)
     {
@@ -148,11 +144,8 @@ int main()
     }
     for(int i = 0 ;i < 20;i++)
     {
-        if(person[i].id != -1)
-        {
-            printf("name = %s\t money = %d\n",person[i].name,person[i].m);
-        }
-    }
+            printf("name = %s\t money = %.2lf\n",person[i].name,person[i].m);
+    } 
 
     pthread_mutex_destroy(&lock);
     return 0;
