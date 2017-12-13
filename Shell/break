@@ -1,0 +1,25 @@
+#!/bin/bash
+#break;
+while :
+    do
+        echo -n "请输入数字1to5:"
+        read number
+        case $number in 
+        1|2|3|4|5)
+            echo -e "你输入的数字在1到5之间\n"
+            ;;
+        *)
+            echo -n "错误数字,continue (y/n)?:"
+            read IS_CONTINUE
+            case $IS_CONTINUE in
+            y|yse)
+                continue;
+                ;;
+            n|no)
+                break;
+                ;;
+            esac
+        esac
+    done
+
+

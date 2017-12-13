@@ -1,0 +1,19 @@
+#!/bin/bash
+#case select
+echo -n "Enter your number from 1to3:"
+read number
+case $number in
+    1)
+        echo "your choose number 1"
+        ;;
+    2)
+        echo "your choose number 2"
+        ;;
+    3)
+        echo "your choose number 3"
+        ;;
+    *)
+        echo "`basename $0`:This is not between 1 and 3" >&2
+        exit;
+        ;;
+esac

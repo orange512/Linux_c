@@ -1,0 +1,10 @@
+#!/bin/bash
+#file_desc
+#打开3文件描述符从标准输入读，0号又从name.txt作为它的输入
+exec 3<&0 0<name.txt
+read line1
+read line2
+#关闭3号描述符
+exec 0<&3
+echo $line1
+echo $line2

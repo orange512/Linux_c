@@ -113,7 +113,7 @@ int main()
                 printf("recv cli data[%d]:%s\n", ret,buf);
                 send(conn,buf,ret-1,0);
                 if( --nready <= 0)
-                    break;
+                    continue;
             }
         }
     }

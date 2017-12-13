@@ -1,0 +1,6 @@
+#!/bin/bash
+#forlist2
+for loop in "oange red bue grey"
+do 
+    echo $loop
+done

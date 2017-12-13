@@ -41,11 +41,11 @@ int main()
         myls(buf);
         if(ent->d_type == 4)
         {
-            printf("[%s]\n",ent->d_name);
+            printf("[%s]\t\t",ent->d_name);
         }
         else
         {
-            printf("%s\n",ent->d_name);
+            printf("%s\t\t",ent->d_name);
         }
 
     }

@@ -17,7 +17,7 @@
 void mulchat(int conn)
 {
     char buf[1024];
-    while(1)
+     while(1)
     {
         memset(buf,0,sizeof(buf));
         int ret = recv(conn,buf,sizeof(buf),0);
@@ -54,7 +54,7 @@ int main()
     int on = 1;
 
     if(setsockopt(listenfd,SOL_SOCKET,SO_REUSEADDR,&on,sizeof(on))< 0)//地址重复利用
-       perror("setsockopt");
+        perror("setsockopt");
     if(bind(listenfd,(struct sockaddr*)&serveraddr,sizeof(serveraddr)) < 0)
        perror("bind");
     if(listen(listenfd,SOMAXCONN) < 0)

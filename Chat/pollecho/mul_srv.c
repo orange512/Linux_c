@@ -56,7 +56,6 @@ int main()
     cli[0].events = POLLIN;
     while(1)
     {
-
         nready = poll(cli,maxfd + 1,1);
         if(nready < 0)
             perror("select");
@@ -78,7 +77,6 @@ int main()
             if( i == 2048)
             {
                 fprintf(stderr,"超出连接数量");
-                exit(EXIT_FAILURE);
             }
             printf("IP = %s PORT = %d\n",inet_ntoa(peeraddr.sin_addr),ntohs(peeraddr.sin_port));
             count++;

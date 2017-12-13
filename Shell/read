@@ -1,0 +1,10 @@
+#!/bin/bash        
+#readname
+echo -n "First Name:"
+read Firstname
+echo -n "last name:"
+read lastname
+echo -e "your First name $Firstname\n"
+echo -e "your Last name $lastname\n"
+
+

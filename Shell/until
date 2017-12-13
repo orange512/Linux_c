@@ -1,0 +1,11 @@
+#!/bin/bash
+#until
+#监控分区
+Part="/backup"
+#得到磁盘使用的百分比
+LOOK_OUT=`df|grep "$Part"|awk '{print $5}'|sed 's/%//g'`
+echo $LOOK_OUT
+until [ "$LOOK_OUT" -gt "90" ]
+do
+    echo "Filesystem/backup is nearly full"|mail root
+done

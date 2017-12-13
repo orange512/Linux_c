@@ -49,7 +49,7 @@ int main()
         nready = select(maxfd + 1,&rset,NULL,NULL,NULL);
         if(nready < 0)
             perror("select");
-        if(nready = 0)
+        if(nready ==  0)
             continue;
         if(FD_ISSET(sock,&rset))
         {

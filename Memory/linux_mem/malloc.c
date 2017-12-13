@@ -12,13 +12,12 @@
 int main()
 {
     char *p; 
-    p = malloc(20);
-    strcpy(p,"123");
-    printf("p=%p\n",p);
-   // printf("0x%x\n",*(p-4));
-    pid_t pid = getpid();
-    printf("pid = %d\n",pid);
-    pause();
+    p = malloc(45);
+    printf("%d\n",*(p-8));
     free(p);
+    char *p1; 
+    p1 = malloc(20);
+    printf("%d\n",*(p1-8));
+    free(p1);
     return 0;
 }
