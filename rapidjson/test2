@@ -1,0 +1,20 @@
+{
+    "name": "orange",
+    "id": "3150931032",
+    "number": [
+        0,
+        1
+    ],
+    "school": {
+        "school1": "ligong",
+        "school2": "guozhong"
+    },
+    "information": [
+        {
+            "hobby": "drawing"
+        },
+        {
+            "height": 1.71
+        }
+    ]
+}
